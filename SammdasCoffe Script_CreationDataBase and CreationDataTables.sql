@@ -1,43 +1,52 @@
 Create Database SammdasCoffee
-Use SammdasCoffe
+use SammdasCoffee
 
--- Tabla Categoría
-CREATE TABLE Categoria (
-  idCategoria INT PRIMARY KEY identity(1,1),
-  nombreCategoria VARCHAR(255)
+-- Tabla Category
+CREATE TABLE Category (
+  categoryID INT PRIMARY KEY identity(1,1),
+  categoryName VARCHAR(255)
 );
 
--- Tabla Producto
-CREATE TABLE Producto (
-  idProducto INT PRIMARY KEY identity(1,1),
-  idCategoria INT,
-  nombreProducto VARCHAR(255),
-  precioProducto DECIMAL(10, 2),
-  FOREIGN KEY (idCategoria) REFERENCES Categoria(idCategoria)
+-- Tabla Product
+CREATE TABLE Product (
+  productID INT PRIMARY KEY identity(1,1),
+  categoryID INT,
+  productName VARCHAR(255),
+  FOREIGN KEY (categoryID) REFERENCES Category(categoryID)
 );
 
--- Tabla DetalleProducto
-CREATE TABLE DetalleProducto (
-  idDetalle INT PRIMARY KEY,
-  idProducto INT,
-  tamaño VARCHAR(50),
-  reseta VARCHAR(465),
-  FOREIGN KEY (idProducto) REFERENCES Producto(idProducto)
+-- Tabla Ingredient
+CREATE TABLE Ingredient (
+  ingredientID INT PRIMARY KEY identity(1,1),
+  ingredientName VARCHAR(255)
+);
+
+-- Tabla ProductDetail
+CREATE TABLE ProductDetail (
+  detailID INT PRIMARY KEY,
+  productID INT,
+  ingredientID INT,
+  size VARCHAR(50),
+  productPrice DECIMAL(10, 2),
+  descriptionProduct VARCHAR(465),
+  FOREIGN KEY (productID) REFERENCES Product(productID),
+  FOREIGN KEY (ingredientID) REFERENCES Ingredient(ingredientID)
 );
 
 
 -- Tabla Rol
 CREATE TABLE Rol (
-  idRol INT PRIMARY KEY identity(1,1),
-  nombreRol VARCHAR(255)
+  rolID INT PRIMARY KEY identity(1,1),
+  rolName VARCHAR(255)
 );
 
--- Tabla Usuario
-CREATE TABLE Usuario (
-  idUsuario INT PRIMARY KEY identity(1,1),
-  nombre VARCHAR(255),
-  email VARCHAR(255),
-  password VARCHAR(255),
-  idRol INT,
-  FOREIGN KEY (idRol) REFERENCES Rol(idRol)
+-- Tabla User
+CREATE TABLE UserType (
+  userID INT PRIMARY KEY identity(1,1),
+  userName VARCHAR(255),
+  userMail VARCHAR(255),
+  userPassword VARCHAR(255),
+  rolID INT,
+  FOREIGN KEY (rolID) REFERENCES Rol(rolID)
 );
+
